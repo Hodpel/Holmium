@@ -1,6 +1,11 @@
 import Image from 'next/image'
 
-export default function Home() {
+export default async function BlogPost({
+    params,
+}: {
+    params: { slug: string } // 这里的 slug 对应文件夹名 [slug]
+}) {
+    const { slug } = await params
     return (
         // <div className="self-stretch flex flex-col items-center lg:flex-row lg:items-stretch">
         //     <div className="flex-1 hidden lg:block"></div>
@@ -8,9 +13,7 @@ export default function Home() {
         //     <div className="flex-1 hidden lg:block"></div>
         // </div>
         <div className="h-999">
-        <span className="text-theme">indexinde21321321321321xindexindex</span>
-        <p className="text-black">indexindexi3123123123132ndexindex</p>
-        <h1 className="text-black">indexindexi3123123123132ndexindex</h1>
+            <span>{slug}</span>
         </div>
     )
 }
