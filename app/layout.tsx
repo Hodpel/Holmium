@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Source_Serif_4, IBM_Plex_Sans } from 'next/font/google'
 
-import { config } from '@/blog.config'
+import config from '@/blog.config'
 
 import { Providers } from '@/lib/theme/themeProvider'
 
@@ -9,11 +9,12 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 import './globals.css'
+import './notion.css'
 
 const fontSerif = Source_Serif_4({
     variable: '--font-serif',
     subsets: ['latin'],
-    weight: ['200', '900'],
+    weight: 'variable',
     style: ['normal', 'italic'],
     display: 'swap',
 })
@@ -21,7 +22,7 @@ const fontSerif = Source_Serif_4({
 const fontSans = IBM_Plex_Sans({
     variable: '--font-sans',
     subsets: ['latin'],
-    weight: ['300', '400', '500', '600', '700'],
+    weight: 'variable',
     style: ['normal', 'italic'],
     display: 'swap',
 })
@@ -44,7 +45,7 @@ export const metadata: Metadata = {
     description: config.description,
 }
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode
@@ -63,9 +64,9 @@ export default function RootLayout({
             </head>
             <body className="text-foreground min-h-screen bg-light dark:bg-dark">
                 <Providers>
-                    <div className="wrapper font-var">
+                    <div className={`wrapper ${config.font === 'serif' ? 'font-serif' : 'font-sans'}`}>
                         <Header />
-                        <main className="grow">{children}</main>
+                        <main className="grow self-stretch flex flex-col items-center lg:flex-row lg:items-stretch">{children}</main>
                         <Footer />
                     </div>
                 </Providers>

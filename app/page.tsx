@@ -1,16 +1,26 @@
-import Image from 'next/image'
+import config from '@/blog.config'
+import Pagination from '@/components/Pagination'
+import PostItem from '@/components/PostIems'
 
-export default function Home() {
+import getPostsList from '@/lib/notion/getPostsList'
+// export const revalidate = 1
+export const revalidate = 100
+
+export default async function Blog() {
+    const postsList = await getPostsList({ includePages: false })
+    const displayedPosts = postsList.slice(0, config.postsPerPage)
+    const totalPosts = postsList.length
+    const showPagination = totalPosts > config.postsPerPage
     return (
-        // <div className="self-stretch flex flex-col items-center lg:flex-row lg:items-stretch">
-        //     <div className="flex-1 hidden lg:block"></div>
-        //     <div className="flex-none w-full max-w-2xl px-4"> </div>
-        //     <div className="flex-1 hidden lg:block"></div>
-        // </div>
-        <div className="h-999">
-        <span className="text-theme">indexinde21321321321321xindexindex</span>
-        <p className="text-black">indexindexi3123123123132ndexindex</p>
-        <h1 className="text-black">indexindexi3123123123132ndexindex</h1>
-        </div>
+        <>
+            <div className="flex-1 hidden lg:block" />
+            <div className="flex-none w-full max-w-2xl px-4">
+                {displayedPosts.map((post) => (
+                    <PostItem key={post.id} post={post} />
+                ))}
+                {showPagination && <Pagination page={1} showNext={showPagination} />}
+            </div>
+            <div className="flex-1 hidden lg:block" />
+        </>
     )
 }

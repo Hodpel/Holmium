@@ -1,9 +1,6 @@
-interface configProps {
-    appearance: 'auto' | 'dark' | 'light'
-    [key: string]: any
-}
+import { Config } from '@/lib/types'
 
-export const config: configProps = {
+export default {
     title: 'Holmium',
     author: {
         name: 'Dominic Hodpel',
@@ -14,17 +11,17 @@ export const config: configProps = {
     locale: 'zh-CN' as const,
     timezone: 'Asia/Shanghai',
     appearance: 'auto',
-    font: 'sans-serif', // ['sans-serif', 'serif']
-    lightBackground: '#ffffff', // use hex value, don't forget '#' e.g #fffefc
-    darkBackground: '#2F3437', // use hex value, don't forget '#'
-    themeColor: '#6b69d6', // use hex value, don't forget '#' e.g #6b69d6
-    path: '', // leave this empty unless you want to deploy Holmium in a folder
-    since: 2022, // If leave this empty, current year will be used.
+    font: 'sans-serif',
+    lightBackground: '#ffffff',
+    darkBackground: '#2F3437',
+    themeColor: '#6b69d6',
+    path: '',
+    since: 2022,
     postsPerPage: 7,
     sortByDate: false,
     showAbout: true,
     showArchive: true,
-    autoCollapsedNavBar: false, // The automatically collapsed navigation bar
+    autoCollapsedNavBar: false,
     ogImage: '/og-image.jpg',
     links: {
         twitter: '',
@@ -33,26 +30,25 @@ export const config: configProps = {
     },
     seo: {
         keywords: ['Blog', 'Website', 'Notion'],
-        googleSiteVerification: '', // Remove the value or replace it with your own google site verification code
+        googleSiteVerification: '',
     },
-    notionPageId: process.env.NOTION_PAGE_ID, // DO NOT CHANGE THIS！！！
-    notionAccessToken: process.env.NOTION_ACCESS_TOKEN, // Useful if you prefer not to make your database public
+    notionPageId: process.env.NOTION_PAGE_ID!,
+    notionAccessToken: process.env.NOTION_ACCESS_TOKEN,
     analytics: {
-        provider: '', // Currently we support Google Analytics and Ackee, please fill with 'ga' or 'ackee', leave it empty to disable it.
+        provider: '',
         ackeeConfig: {
-            tracker: '', // e.g 'https://ackee.craigary.net/tracker.js'
-            dataAckeeServer: '', // e.g https://ackee.craigary.net , don't end with a slash
-            domainId: '', // e.g '0e2257a8-54d4-4847-91a1-0311ea48cc7b'
+            tracker: '',
+            dataAckeeServer: '',
+            domainId: '',
         },
         gaConfig: {
             measurementId: '', // e.g: G-XXXXXXXXXX
         },
     },
     comment: {
-        // support provider: gitalk, utterances, cusdis
-        provider: '', // leave it empty if you don't need any comment plugin
+        provider: '',
         gitalkConfig: {
-            repo: '', // The repository of store comments
+            repo: '',
             owner: '',
             admin: [],
             clientID: '',
@@ -63,12 +59,10 @@ export const config: configProps = {
             repo: '',
         },
         cusdisConfig: {
-            appId: '', // data-app-id
-            host: 'https://cusdis.com', // data-host, change this if you're using self-hosted version
-            scriptSrc: 'https://cusdis.com/js/cusdis.es.js', // change this if you're using self-hosted version
+            appId: '',
+            host: 'https://cusdis.com',
+            scriptSrc: 'https://cusdis.com/js/cusdis.es.js',
         },
     },
-    isProd: process.env.VERCEL_ENV === 'production', // distinguish between development and production environment (ref: https://vercel.com/docs/environment-variables#system-environment-variables)
-} as const
-
-export type config = typeof config
+    isProd: process.env.VERCEL_ENV === 'production',
+} as Config

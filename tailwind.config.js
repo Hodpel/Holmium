@@ -1,4 +1,4 @@
-import { config } from './blog.config.ts'
+import config from './blog.config.ts'
 
 export default {
     darkMode: 'class',

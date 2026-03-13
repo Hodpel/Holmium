@@ -61,7 +61,7 @@ export const SearchIcon: React.FC<IconProps> = ({ className = 'right-3 top-3 h-5
 }
 
 export const ScrollUpIcon: React.FC<IconProps> = ({
-    className = 'caret w-6 h-6 absolute inset-x-0 bottom-0 mx-auto pointer-events-none text-theme opacity-30 group-hover:opacity-100 transition duration-100',
+    className = 'caret w-6 h-6 absolute inset-x-0 bottom-0 mx-auto pointer-events-none text-gray-600 group-hover:text-theme dark:text-gray-300 dark:group-hover:text-theme transition duration-500 ease-[cubic-bezier(0.4,0,0,1)]',
 }) => {
     return (
         <svg className={className} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">

@@ -1,10 +1,9 @@
 'use client'
 
-import { forwardRef, useCallback, useEffect, useRef, useState, MouseEvent } from 'react'
-import { useMedia } from 'react-use'
+import { forwardRef, useCallback, useEffect, useRef, MouseEvent } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { config } from '@/blog.config'
+import config from '@/blog.config'
 import { HomeIcon, TrashIcon, CloudIcon, LinkIcon, SearchIcon, ScrollUpIcon } from '@/components/Icons'
 
 type NavLink = {
@@ -17,7 +16,6 @@ type NavLink = {
 }
 
 const NavBar = () => {
-    // const locale = useLocale()
     const links: NavLink[] = [
         { id: 0, name: '首页', icon: <HomeIcon />, to: config.path || '/', show: true },
         { id: 1, name: '废纸篓', icon: <TrashIcon />, to: '/废纸篓', show: true },
@@ -33,8 +31,8 @@ const NavBar = () => {
                     (link) =>
                         link.show && (
                             <li key={link.id} className="block ml-4 text-black dark:text-gray-50 nav" title={link.name}>
-                                <Link href={link.to} target={link.external ? '_blank' : undefined}>
-                                    {link.icon ?? link.name}
+                                <Link scroll={false} href={link.to} target={link.external ? '_blank' : undefined}>
+                                    {link.icon || link.name}
                                 </Link>
                             </li>
                         )
@@ -45,22 +43,10 @@ const NavBar = () => {
 }
 
 export default function Header() {
-    // const BLOG = useConfig()
-    // const { dark } = useTheme()
     // const { postTitle, fullWidth } = useHeader()
-    const prefersDark = useMedia('(prefers-color-scheme: dark)', false)
-    const dark = config.appearance === 'dark' || (config.appearance === 'auto' && prefersDark)
+    //TODO: footer fullwidth配置
     const fullWidth = false
     const postTitle = ''
-
-    useEffect(() => {
-        // Only decide color scheme after initial loading, i.e. when `dark` is really representing a
-        // media query result
-        if (typeof dark === 'boolean') {
-            document.documentElement.classList.toggle('dark', dark)
-            document.documentElement.classList.remove('color-scheme-unset')
-        }
-    }, [dark])
 
     // Favicon
     const favicon = '/favicon.ico'
@@ -95,7 +81,6 @@ export default function Header() {
     const handleClickHeader = (ev: MouseEvent<HTMLDivElement>) => {
         const target = ev.target as HTMLElement
 
-        // 检查 target 是否是 navRef.current 或 titleRef.current 或它们的子元素
         if (navRef.current?.contains(target) || titleRef.current?.contains(target)) {
             window.scrollTo({
                 top: 0,
@@ -117,7 +102,7 @@ export default function Header() {
                 <ScrollUpIcon />
 
                 <div className="flex items-center">
-                    <Link href="/" aria-label={config.title}>
+                    <Link scroll={false} href="/" aria-label={config.title}>
                         <Image src="/favicon.ico" width={32} height={32} alt={config.title} />
                     </Link>
 

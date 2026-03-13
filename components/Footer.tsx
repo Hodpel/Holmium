@@ -1,11 +1,11 @@
 'use client'
 
-import { config } from '@/blog.config'
+import config from '@/blog.config'
 
 export default function Footer() {
     const d = new Date()
     const y = d.getFullYear()
-    const from = +config.since
+    const from = config.since
     //TODO: footer fullwidth配置
     const fullWidth = false
     return (

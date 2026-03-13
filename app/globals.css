@@ -1,5 +1,4 @@
 @config "../tailwind.config.js";
-
 @import 'tailwindcss';
 
 @theme {
@@ -10,10 +9,6 @@
         'NSimSun', 'SimSun', 'TW-Sung', 'WenQuanYi Bitmap Song', 'AR PL UMing CN', 'AR PL UMing HK', 'AR PL UMing TW', 'AR PL UMing TW MBE', 'PMingLiU', 'MingLiU', 'serif';
 
     --font-noEmoji: 'IBM Plex Sans', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif';
-}
-
-.font-var {
-    font-family: var(--dynamic-font);
 }
 
 :root {
@@ -30,6 +25,15 @@
     /* background: rgba(45, 170, 219, 0.3); */
     background-color: theme('colors.theme.DEFAULT / 0.3');
     /* background-color: theme('config.theme.DEFAULT'); */
+}
+
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: flex-start;
+    flex-direction: column;
 }
 
 .sticky-nav {
@@ -49,10 +53,6 @@
 
 .sticky-nav-fullwidth {
     @apply max-w-full md:px-24;
-}
-
-.sticky-nav svg {
-    transition: opacity 0.5s cubic-bezier(0.4, 0, 0, 1);
 }
 
 .remove-sticky {
