@@ -78,17 +78,6 @@ export default function Header() {
 
     const titleRef = useRef<HTMLParagraphElement | null>(null)
 
-    const handleClickHeader = (ev: MouseEvent<HTMLDivElement>) => {
-        const target = ev.target as HTMLElement
-
-        if (navRef.current?.contains(target) || titleRef.current?.contains(target)) {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth',
-            })
-        }
-    }
-
     return (
         <>
             <div className="observer-element h-4 md:h-12" ref={sentinelRef} />
@@ -97,7 +86,6 @@ export default function Header() {
                 className={`sticky-nav group m-auto w-full h-6 flex flex-row justify-between items-center mb-2 md:mb-12 py-8 px-4 ${fullWidth ? 'sticky-nav-fullwidth' : ''}`}
                 id="sticky-nav"
                 ref={navRef}
-                onClick={handleClickHeader}
             >
                 <ScrollUpIcon />
 
@@ -106,7 +94,7 @@ export default function Header() {
                         <Image src="/favicon.ico" width={32} height={32} alt={config.title} />
                     </Link>
 
-                    <HeaderName ref={titleRef} siteTitle={config.title} siteDescription={config.description} postTitle={postTitle} onClick={handleClickHeader} />
+                    <HeaderName ref={titleRef} siteTitle={config.title} siteDescription={config.description} postTitle={postTitle} />
                 </div>
 
                 <NavBar />
@@ -119,12 +107,11 @@ type HeaderNameProps = {
     siteTitle: string
     siteDescription?: string
     postTitle?: string
-    onClick: (e: MouseEvent<HTMLDivElement>) => void
 }
 
-const HeaderName = forwardRef<HTMLParagraphElement, HeaderNameProps>(function HeaderName({ siteTitle, siteDescription, postTitle, onClick }, ref) {
+const HeaderName = forwardRef<HTMLParagraphElement, HeaderNameProps>(function HeaderName({ siteTitle, siteDescription, postTitle }, ref) {
     return (
-        <p ref={ref} className="header-name ml-2 font-medium text-gray-600 dark:text-gray-300 capture-pointer-events grid-rows-1 grid-cols-1 items-center" onClick={onClick}>
+        <p ref={ref} className="header-name ml-2 font-medium text-gray-600 dark:text-gray-300 capture-pointer-events grid-rows-1 grid-cols-1 items-center">
             {postTitle && <span className="post-title row-start-1 col-start-1">{postTitle}</span>}
             <span className="row-start-1 col-start-1">
                 <span className="site-title">{siteTitle}</span>

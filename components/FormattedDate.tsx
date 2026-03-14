@@ -11,7 +11,7 @@ const loaded: {
     [key: string]: boolean | Promise<unknown> | undefined
 } = {}
 
-export default function FormattedDate({ date }: { date: Date }) {
+export default function FormattedDate({ date }: { date: Date | number }) {
     const lang = config.locale.slice(0, 2)
     const [isLocaleLoaded, setIsLocaleLoaded] = useState(loaded[lang] === true)
     const [formatted, setFormatted] = useState('') // 服务端为空

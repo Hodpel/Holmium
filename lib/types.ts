@@ -274,7 +274,7 @@ export interface PageProperties {
     slug?: string
     type?: string
     tags?: string[]
-    date: Date
+    date: Date | number
     summary?: string
     status?: string
     format: {
