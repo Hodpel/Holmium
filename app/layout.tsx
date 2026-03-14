@@ -3,7 +3,7 @@ import { Source_Serif_4, IBM_Plex_Sans } from 'next/font/google'
 
 import config from '@/blog.config'
 
-import { Providers } from '@/lib/theme/themeProvider'
+import ContextLayout from '@/components/ContextLayout'
 
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -65,13 +65,13 @@ export default async function RootLayout({
                 )}
             </head>
             <body className="text-foreground min-h-screen bg-light dark:bg-dark">
-                <Providers>
+                <ContextLayout>
                     <div className={`wrapper ${config.font === 'serif' ? 'font-serif' : 'font-sans'}`}>
                         <Header />
                         <main className="grow self-stretch flex flex-col items-center lg:flex-row lg:items-stretch">{children}</main>
                         <Footer />
                     </div>
-                </Providers>
+                </ContextLayout>
             </body>
         </html>
     )

@@ -4,15 +4,14 @@ import { ThemeProvider } from 'next-themes'
 import type { ReactNode } from 'react'
 import { useEffect } from 'react'
 
-export function Providers({ children }: { children: ReactNode }) {
+export default function ContextLayout({ children }: { children: ReactNode }) {
     useEffect(() => {
         const handleClick = (ev: MouseEvent) => {
             const target = ev.target as HTMLElement
-
             const isClickable =
                 target.matches(`
         a, button, input, select, textarea,
-        [role="button"], [role="link"], [onclick]
+        [role="button"], [role="link"], [onclick],.sticky-nav
       `) || target.closest('a, button, [role="button"]')
 
             if (isClickable) {
