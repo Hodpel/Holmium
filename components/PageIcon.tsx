@@ -13,7 +13,7 @@ function isEmoji(str: string) {
 
 export default function PageIcon({ post }: { post: PageProperties }) {
     const theme = useTheme().resolvedTheme || 'light'
-    const icon: string = post.format?.page_icon
+    const icon: string = post.format.page_icon || '✍️'
 
     if (!icon) return null
 
