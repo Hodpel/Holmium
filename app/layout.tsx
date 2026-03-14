@@ -17,6 +17,7 @@ const fontSerif = Source_Serif_4({
     weight: 'variable',
     style: ['normal', 'italic'],
     display: 'swap',
+    fallback: ['Noto Serif SC', 'Times New Roman', 'SimSun', 'serif'],
 })
 
 const fontSans = IBM_Plex_Sans({
@@ -25,6 +26,7 @@ const fontSans = IBM_Plex_Sans({
     weight: 'variable',
     style: ['normal', 'italic'],
     display: 'swap',
+    fallback: ['Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'sans-serif'],
 })
 
 const fontClass = config.font === 'serif' ? fontSerif.variable : fontSans.variable
