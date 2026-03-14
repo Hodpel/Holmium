@@ -12,12 +12,11 @@ export default async function Page({ params }: { params: { page: number } }) {
     const displayedPosts = postsList.slice(config.postsPerPage * (page - 1), config.postsPerPage * page)
     const totalPosts = postsList.length
     const showPagination = page * config.postsPerPage < totalPosts
-    console.log('page to go', page)
 
     return (
         <>
             <div className="flex-1 hidden lg:block" />
-            <div className="flex-none w-full max-w-2xl px-4  min-h-10000">
+            <div className="flex-none w-full max-w-2xl px-4">
                 {displayedPosts.map((post) => (
                     <PostItem key={post.id} post={post} />
                 ))}
