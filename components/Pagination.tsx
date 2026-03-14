@@ -8,7 +8,7 @@ const Pagination = ({ page, showPagination }: { page: number; showPagination: bo
     if (currentPage === 1 && showPagination) additionalClassName = 'justify-end'
     if (currentPage !== 1 && !showPagination) additionalClassName = 'justify-start'
     return (
-        <div className={`flex font-medium text-black dark:text-gray-100 ${additionalClassName}`}>
+        <div className={`flex font-medium text-gray-500 dark:text-gray-400 hover:text-theme ${additionalClassName}`}>
             {currentPage !== 1 && (
                 <Link scroll={false} href={currentPage - 1 === 1 ? `${config.path || '/'}` : `/page/${currentPage - 1}`}>
                     <button rel="prev" className="block cursor-pointer">
