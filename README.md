@@ -35,6 +35,12 @@ Holmium 基于 Next.js App Router、`notion-client` 与 `react-notion-x` 构建�
 
 项目直接使用 Notion 的 RecordMap 数据结构，不依赖 Notion 官方 API。
 
+## 界面预览
+
+![Holmium 首页预览：浅色非衬线与深色衬线展示](docs/assets/theme-split.png)
+
+截图展示两种主题与字体组合；主题和字体可以分别配置，不要求固定搭配。
+
 ## 功能概览
 
 - 使用 Notion 数据库管理文章与独立页面
