@@ -1,0 +1,44 @@
+{
+    "NAV": {
+        "SEARCH": "Search"
+    },
+    "PAGINATION": {
+        "PREV": "Prev",
+        "NEXT": "Next"
+    },
+    "POST": {
+        "BACK": "Back",
+        "HOME": "Back to Home",
+        "TOP": "Top",
+        "SUMMARY_EXPAND": "Expand summary",
+        "SUMMARY_COLLAPSE": "Collapse summary",
+        "TAGS_EXPAND": "Show {count} more tags",
+        "TAGS_COLLAPSE": "Hide {count} tags"
+    },
+    "TAG_PAGE": {
+        "POSTS": "Posts"
+    },
+    "ARCHIVE": {
+        "EMPTY": "There are no posts to archive yet."
+    },
+    "MOMENTS": {
+        "EMPTY": "No moments yet."
+    },
+    "NOTION": {
+        "COLLECTION_UNAVAILABLE": "The database view is temporarily unavailable",
+        "COLLECTION_UNSUPPORTED": "The current renderer does not support the {view} layout",
+        "COLLECTION_NO_STATUS": "No status",
+        "COLLECTION_UNTITLED": "Untitled",
+        "COLLECTION_LOAD_MORE": "Load more"
+    },
+    "PAGE": {
+        "ERROR_404": {
+            "MESSAGE": "Nothing here"
+        },
+        "ERROR_500": {
+            "TITLE": "This page couldn't load",
+            "RETRY": "Try again",
+            "HOME": "Back to Home"
+        }
+    }
+}

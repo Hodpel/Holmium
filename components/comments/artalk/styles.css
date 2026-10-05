@@ -1,0 +1,483 @@
+.artalk-comments .artalk,
+.atk-layer-wrap {
+    --at-color-main: var(--holmium-comment-accent);
+    --at-color-font: #4b5563;
+    --at-color-deep: #374151;
+    --at-color-sub: #6b7280;
+    --at-color-grey: #6b7280;
+    --at-color-meta: #6b7280;
+    --at-color-bg: var(--holmium-comment-light-bg);
+    --at-color-bg-transl: color-mix(in srgb, var(--holmium-comment-light-bg) 94%, transparent);
+    --at-color-bg-grey: color-mix(in srgb, var(--holmium-comment-light-bg) 94%, #6b7280);
+    --at-color-bg-grey-transl: color-mix(in srgb, var(--holmium-comment-light-bg) 90%, transparent);
+    --at-color-bg-light: color-mix(in srgb, var(--holmium-comment-accent) 10%, transparent);
+    --at-color-gradient: linear-gradient(180deg, transparent, var(--holmium-comment-light-bg));
+    --holmium-comment-code-bg: #f5f2f0;
+    --holmium-comment-code-fg: #000;
+    --holmium-comment-token-comment: #708090;
+    --holmium-comment-token-punctuation: #999;
+    --holmium-comment-token-primary: #905;
+    --holmium-comment-token-string: #690;
+    --holmium-comment-token-operator: #9a6e3a;
+    --holmium-comment-token-keyword: #07a;
+    --holmium-comment-token-function: #dd4a68;
+    --holmium-comment-token-variable: #e90;
+}
+
+body.holmium-artalk-stable-gutter[style*='overflow: hidden'] {
+    padding-right: var(--holmium-body-padding-right, 0px) !important;
+}
+
+html:has(> body.holmium-artalk-stable-gutter[style*='overflow: hidden']) {
+    background-color: color-mix(in srgb, var(--holmium-comment-light-bg) 70%, black);
+}
+
+html.dark:has(> body.holmium-artalk-stable-gutter[style*='overflow: hidden']) {
+    background-color: color-mix(in srgb, var(--holmium-comment-dark-bg) 70%, black);
+}
+
+.artalk-comments .artalk.atk-dark-mode,
+.atk-layer-wrap.atk-dark-mode {
+    --at-color-font: #d1d5db;
+    --at-color-deep: #e5e7eb;
+    --at-color-sub: #9ca3af;
+    --at-color-grey: #9ca3af;
+    --at-color-meta: #9ca3af;
+    --at-color-bg: var(--holmium-comment-dark-bg);
+    --at-color-bg-transl: color-mix(in srgb, var(--holmium-comment-dark-bg) 94%, transparent);
+    --at-color-bg-grey: color-mix(in srgb, var(--holmium-comment-dark-bg) 88%, #d1d5db);
+    --at-color-bg-grey-transl: color-mix(in srgb, var(--holmium-comment-dark-bg) 90%, transparent);
+    --at-color-gradient: linear-gradient(180deg, transparent, var(--holmium-comment-dark-bg));
+    --holmium-comment-code-bg: #272822;
+    --holmium-comment-code-fg: #f8f8f2;
+    --holmium-comment-token-comment: #8292a2;
+    --holmium-comment-token-punctuation: #f8f8f2;
+    --holmium-comment-token-primary: #f92672;
+    --holmium-comment-token-string: #a6e22e;
+    --holmium-comment-token-operator: #f8f8f2;
+    --holmium-comment-token-keyword: #66d9ef;
+    --holmium-comment-token-function: #e6db74;
+    --holmium-comment-token-variable: #fd971f;
+}
+
+.artalk-comments .artalk {
+    min-height: 12rem;
+    font-family: inherit;
+    font-weight: 500;
+    animation: holmium-artalk-enter 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.artalk-comments .atk-main-editor,
+.artalk-comments .atk-main-editor input,
+.artalk-comments .atk-main-editor textarea,
+.artalk-comments .atk-comment-wrap {
+    transition:
+        border-color 180ms ease,
+        background-color 180ms ease,
+        box-shadow 180ms ease;
+}
+
+.artalk-comments .atk-main-editor {
+    display: flex;
+    flex-direction: column;
+}
+
+.artalk-comments .atk-main-editor > .atk-bottom {
+    order: 1;
+}
+
+.artalk-comments .atk-main-editor > .atk-plug-panel-wrap {
+    order: 2;
+}
+
+.artalk-comments .atk-main-editor:focus-within {
+    border-color: color-mix(in srgb, var(--holmium-comment-accent) 65%, transparent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--holmium-comment-accent) 12%, transparent);
+}
+
+.artalk-comments .atk-loading-icon {
+    border-color: var(--holmium-comment-accent) transparent transparent var(--holmium-comment-accent);
+}
+
+.artalk-comments .atk-loading-spinner svg circle {
+    stroke: var(--holmium-comment-accent);
+    animation: 1.5s ease-in-out infinite atkDash;
+}
+
+.artalk-comments .atk-notify {
+    border-radius: 0.375rem;
+    background-color: var(--holmium-comment-accent) !important;
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--holmium-comment-accent) 18%, transparent);
+}
+
+.artalk-comments :is(button, .atk-plug-btn, .atk-common-action-btn, .atk-height-limit-btn) {
+    transition:
+        color 160ms ease,
+        border-color 160ms ease,
+        background-color 160ms ease,
+        box-shadow 160ms ease,
+        opacity 160ms ease,
+        transform 120ms ease;
+}
+
+.artalk-comments :is(button, .atk-plug-btn, .atk-common-action-btn):hover {
+    transform: translateY(-1px);
+}
+
+.artalk-comments :is(button, .atk-plug-btn, .atk-common-action-btn):active {
+    transform: translateY(0) scale(0.97);
+}
+
+.artalk-comments :is(button, .atk-plug-btn, .atk-common-action-btn, .atk-height-limit-btn):focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--holmium-comment-accent) 65%, transparent);
+    outline-offset: 2px;
+}
+
+.artalk-comments .artalk.holmium-artalk-motion .atk-main-editor > .atk-plug-panel-wrap {
+    animation: none;
+    transition: none;
+}
+
+.artalk-comments .artalk:not(.holmium-artalk-motion) .atk-editor-plug-preview:not([style*='display: none']) {
+    animation: holmium-artalk-panel-content-enter 200ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.artalk-comments :is(.atk-editor-plug-preview, .atk-content) {
+    color: var(--at-color-font);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 2rem;
+    letter-spacing: normal;
+}
+
+.artalk-comments :is(.atk-editor-plug-preview, .atk-content) p {
+    margin: 0.75rem 0 0.0625rem;
+}
+
+.artalk-comments :is(.atk-editor-plug-preview, .atk-content) > p:first-child {
+    margin-top: 0;
+}
+
+.artalk-comments :is(.atk-editor-plug-preview, .atk-content) > p:last-child {
+    margin-bottom: 0;
+}
+
+.artalk-comments :is(.atk-editor-plug-preview, .atk-content) strong {
+    font-weight: 600;
+}
+
+.artalk-comments :is(.atk-editor-plug-preview, .atk-content) :is(h1, h2, h3, h4, h5, h6) {
+    font-weight: 600;
+}
+
+.artalk-comments :is(.atk-editor-plug-preview, .atk-content) code {
+    display: inline;
+    margin: 0;
+    padding: 0.17em 0.34em;
+    vertical-align: baseline;
+    border-radius: 0.5rem;
+    color: var(--holmium-comment-accent);
+    background: rgb(127 122 107 / 10%);
+    font-size: 0.85em;
+    line-height: inherit;
+}
+
+.artalk-comments :is(.atk-editor-plug-preview, .atk-content) blockquote {
+    margin: 0.75rem 0 0.375rem;
+    padding: 0.2em 0.9em;
+    border-left: 4px solid var(--holmium-comment-accent);
+    color: inherit;
+    background: transparent;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 2rem;
+}
+
+.artalk-comments :is(.atk-editor-plug-preview, .atk-content) blockquote blockquote {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+.artalk-comments :is(.atk-editor-plug-preview, .atk-content) :is(ul, ol) {
+    margin: 0;
+    padding: 0.1875rem 0 0.1875rem 1.75rem;
+}
+
+.artalk-comments :is(.atk-editor-plug-preview, .atk-content) ul {
+    list-style: outside disc;
+}
+
+.artalk-comments :is(.atk-editor-plug-preview, .atk-content) ol {
+    list-style: outside decimal;
+}
+
+.artalk-comments :is(.atk-editor-plug-preview, .atk-content) li {
+    margin: 0;
+    padding: 0.375rem 0.125rem;
+    line-height: 2rem;
+}
+
+.artalk-comments :is(.atk-editor-plug-preview, .atk-content) li > :is(ul, ol) {
+    margin-top: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.artalk-comments :is(.atk-editor-plug-preview, .atk-content) hr {
+    height: 1px;
+    margin: 1.5rem 0;
+    border: 0;
+    background: color-mix(in srgb, var(--at-color-font) 16%, transparent);
+}
+
+.artalk-comments :is(.atk-editor-plug-preview, .atk-content) pre {
+    margin: 0.425rem 0;
+    padding: 0;
+    line-height: inherit;
+}
+
+.artalk-comments :is(.atk-editor-plug-preview, .atk-content) pre code {
+    display: block;
+    padding: 0.85rem;
+    overflow-x: auto;
+    border-radius: 0.5rem;
+    color: var(--holmium-comment-code-fg);
+    background: var(--holmium-comment-code-bg);
+    font-size: 0.85em;
+    line-height: 1.5;
+    white-space: pre !important;
+    word-break: normal;
+}
+
+.artalk-comments :is(.atk-editor-plug-preview, .atk-content) pre code span[style*='color: slategray' i] {
+    color: var(--holmium-comment-token-comment) !important;
+}
+
+.artalk-comments
+    :is(.atk-editor-plug-preview, .atk-content)
+    pre
+    code
+    :is(span[style*='color: #9FA0A0' i]) {
+    color: var(--holmium-comment-token-punctuation) !important;
+}
+
+.artalk-comments
+    :is(.atk-editor-plug-preview, .atk-content)
+    pre
+    code
+    :is(span[style*='color: #E8552D' i], span[style*='color: #E1147F' i], span[style*='color: #E30B20' i]) {
+    color: var(--holmium-comment-token-primary) !important;
+}
+
+.artalk-comments :is(.atk-editor-plug-preview, .atk-content) pre code span[style*='color: #1AAB8E' i] {
+    color: var(--holmium-comment-token-string) !important;
+}
+
+.artalk-comments :is(.atk-editor-plug-preview, .atk-content) pre code span[style*='color: #A3338B' i] {
+    color: var(--holmium-comment-token-operator) !important;
+}
+
+.artalk-comments
+    :is(.atk-editor-plug-preview, .atk-content)
+    pre
+    code
+    :is(span[style*='color: #23AC69' i], span[style*='color: #2980C1' i], span[style*='color: #1BA1E6' i]) {
+    color: var(--holmium-comment-token-keyword) !important;
+}
+
+.artalk-comments :is(.atk-editor-plug-preview, .atk-content) pre code span[style*='color: #91C132' i] {
+    color: var(--holmium-comment-token-function) !important;
+}
+
+.artalk-comments :is(.atk-editor-plug-preview, .atk-content) pre code span[style*='color: #F19726' i] {
+    color: var(--holmium-comment-token-variable) !important;
+}
+
+.artalk-comments .atk-comment .atk-height-limit-btn {
+    padding: 0.375rem 0.75rem;
+    border: 1px solid var(--at-color-border);
+    border-radius: 9999px;
+    color: var(--at-color-meta);
+    background: var(--at-color-bg-grey);
+    box-shadow: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.artalk-comments .atk-comment .atk-height-limit-btn:hover {
+    color: var(--holmium-comment-accent);
+    border-color: color-mix(in srgb, var(--holmium-comment-accent) 35%, var(--at-color-border));
+    background: var(--at-color-bg-grey);
+}
+
+.artalk-comments .atk-comment .atk-height-limit.holmium-artalk-expanding::after {
+    animation: holmium-artalk-height-limit-fade var(--holmium-artalk-expand-duration) linear forwards;
+}
+
+.artalk-comments .atk-editor-plug-emoticons .atk-grp-switcher > span {
+    transition:
+        color 160ms ease,
+        border-color 160ms ease,
+        background-color 160ms ease,
+        opacity 160ms ease;
+}
+
+.artalk-comments .atk-main-editor > .atk-bottom .atk-send-btn {
+    border-color: var(--holmium-comment-accent);
+    border-radius: 0.375rem;
+    background-color: var(--holmium-comment-accent);
+    transition:
+        color 160ms ease,
+        border-color 160ms ease,
+        background-color 160ms ease,
+        box-shadow 160ms ease,
+        opacity 160ms ease,
+        transform 120ms ease;
+}
+
+.artalk-comments .atk-main-editor > .atk-bottom .atk-send-btn:hover,
+.artalk-comments .atk-main-editor > .atk-bottom .atk-send-btn:focus-visible {
+    border-color: color-mix(in srgb, var(--holmium-comment-accent) 88%, black);
+    background-color: color-mix(in srgb, var(--holmium-comment-accent) 88%, black);
+    box-shadow: 0 3px 10px color-mix(in srgb, var(--holmium-comment-accent) 20%, transparent);
+}
+
+.atk-layer-wrap {
+    color: var(--at-color-font);
+    font-family: inherit;
+}
+
+.atk-layer-wrap .atk-layer-dialog-wrap {
+    animation: holmium-artalk-dialog-enter 200ms ease-out both;
+}
+
+.atk-layer-wrap .atk-layer-dialog-wrap > .atk-layer-dialog {
+    width: min(24rem, calc(100% - 2rem)) !important;
+}
+
+.atk-layer-wrap .atk-layer-dialog-content {
+    color: var(--at-color-font);
+    line-height: 1.6;
+}
+
+.atk-layer-wrap .atk-layer-dialog-wrap > .atk-layer-dialog > .atk-layer-dialog-content input {
+    color: var(--at-color-font);
+    border-color: var(--at-color-border);
+    border-radius: 0.375rem;
+    transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease,
+        background-color 180ms ease;
+}
+
+.atk-layer-wrap .atk-layer-dialog-wrap > .atk-layer-dialog > .atk-layer-dialog-content input:focus {
+    border-color: var(--holmium-comment-accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--holmium-comment-accent) 12%, transparent);
+}
+
+.atk-layer-wrap .atk-layer-dialog-actions {
+    gap: 0.5rem;
+}
+
+.atk-layer-wrap .atk-layer-dialog-wrap > .atk-layer-dialog > .atk-layer-dialog-actions button {
+    min-height: 2.25rem;
+    margin: 0;
+    border-color: var(--holmium-comment-accent);
+    border-radius: 0.375rem;
+    color: var(--holmium-comment-accent);
+    transition:
+        color 180ms ease,
+        background-color 180ms ease,
+        box-shadow 180ms ease;
+}
+
+.atk-layer-wrap .atk-layer-dialog-wrap > .atk-layer-dialog > .atk-layer-dialog-actions button:hover,
+.atk-layer-wrap .atk-layer-dialog-wrap > .atk-layer-dialog > .atk-layer-dialog-actions button:focus-visible {
+    background-color: color-mix(in srgb, var(--holmium-comment-accent) 10%, transparent);
+}
+
+.atk-layer-wrap .atk-layer-dialog-wrap > .atk-layer-dialog > .atk-layer-dialog-actions button:focus-visible {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--holmium-comment-accent) 12%, transparent);
+}
+
+.artalk-comments ::selection {
+    color: inherit;
+    background-color: color-mix(in srgb, var(--holmium-comment-accent) 30%, transparent) !important;
+}
+
+@keyframes holmium-artalk-enter {
+    from {
+        opacity: 0;
+        transform: translateY(0.5rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes holmium-artalk-dialog-enter {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes holmium-artalk-panel-content-enter {
+    from {
+        opacity: 0;
+        transform: translateY(0.25rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes holmium-artalk-height-limit-fade {
+    0%,
+    62% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .artalk-comments .artalk {
+        animation: none;
+    }
+
+    .atk-layer-wrap .atk-layer-dialog-wrap {
+        animation: none;
+    }
+
+    .artalk-comments .atk-main-editor,
+    .artalk-comments .atk-main-editor input,
+    .artalk-comments .atk-main-editor textarea,
+    .artalk-comments .atk-comment-wrap,
+    .artalk-comments .atk-main-editor > .atk-plug-panel-wrap,
+    .artalk-comments :is(button, .atk-plug-btn, .atk-common-action-btn, .atk-height-limit-btn) {
+        transition: none;
+    }
+
+    .artalk-comments .artalk:not(.holmium-artalk-motion) .atk-editor-plug-preview:not([style*='display: none']) {
+        animation: none;
+    }
+
+    .artalk-comments .atk-comment .atk-height-limit.holmium-artalk-expanding::after {
+        animation: none;
+    }
+
+    .artalk-comments .atk-editor-plug-emoticons .atk-grp-switcher > span {
+        transition: none;
+    }
+}

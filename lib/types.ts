@@ -1,0 +1,227 @@
+type HexColor = `#${string}`
+
+export type NavigationIconName = 'home' | 'sparkles' | 'cloud' | 'link' | 'search'
+
+export interface NavigationItem {
+    label: string
+    icon: NavigationIconName
+    href: string
+}
+
+export interface Config {
+    /**
+     * Blog title
+     * @example 'Holmium'
+     */
+    title: string
+
+    /**
+     * Author information
+     */
+    author: {
+        /**
+         * Author name
+         * @example 'Example Author'
+         */
+        name: string
+        /**
+         * Personal website URL
+         * @example 'https://example.com'
+         */
+        url: string
+        /**
+         * Contact email
+         * @example 'author@example.com'
+         */
+        email: string
+    }
+
+    /**
+     * Blog description
+     * @example 'Just A Blog'
+     */
+    description: string
+
+    /**
+     * Public URL of the deployed blog, including a subpath when applicable
+     * @example 'https://example.com'
+     */
+    siteUrl: string
+
+    /**
+     * Locale setting
+     * @example 'zh-CN', 'en-US'
+     */
+    locale: 'zh-CN' | 'zh-HK' | 'en-US' | 'zh-TW' | 'ja-JP' | 'es-ES' | string
+
+    /**
+     * Timezone
+     * @default 'Asia/Shanghai'
+     * @see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+     */
+    timezone: string
+
+    /**
+     * Appearance mode
+     * @default 'auto'
+     * - auto: Follow system preference
+     * - light: Light mode
+     * - dark: Dark mode
+     */
+    appearance: 'auto' | 'light' | 'dark'
+
+    /**
+     * Font type
+     * @default 'sans-serif'
+     */
+    font: 'sans-serif' | 'serif'
+
+    /**
+     * Light mode background color
+     * @default '#ffffff'
+     * @format hex color
+     */
+    lightBackground: HexColor
+
+    /**
+     * Dark mode background color
+     * @default '#2F3437'
+     * @format hex color
+     */
+    darkBackground: HexColor
+
+    /**
+     * Theme color
+     * @default '#6b69d6'
+     * @format hex color
+     */
+    themeColor: HexColor
+
+    /**
+     * Browser favicon and header logo configuration
+     */
+    icons: {
+        /** Default browser favicon. Use a local path from the public directory. */
+        favicon: string
+        /** Optional dark-mode favicon. Falls back to favicon when empty. */
+        faviconDark?: string
+        /** Header logo path, 'favicon' to reuse the resolved browser favicon, or empty to hide it. */
+        headerLogo: string
+        /** Optional dark-mode header logo path, or 'favicon'. Falls back to headerLogo when empty. */
+        headerLogoDark?: string
+    }
+
+    /**
+     * Deployment path
+     * @description Fill this if deploying in a subfolder
+     * @default ''
+     */
+    path: string
+
+    /**
+     * Blog founding year
+     * @description Leave empty to use current year
+     */
+    since?: number
+
+    /**
+     * Posts per page
+     * @default 7
+     */
+    postsPerPage: number
+
+    /**
+     * Sort posts by date
+     * @default false
+     */
+    sortByDate: boolean
+
+    /**
+     * Auto collapse navigation bar
+     * @default false
+     */
+    autoCollapsedNavBar: boolean
+
+    /** Header navigation items, rendered in array order. */
+    navigation: NavigationItem[]
+
+    /** Show the Notion cover background at the top of article pages. */
+    showArticleCover: boolean
+
+    /**
+     * SEO configuration
+     */
+    seo: {
+        /** Whether search engines may index public blog pages. */
+        indexing: boolean
+        /** SEO keywords */
+        keywords: string[]
+        /**
+         * Google site verification code
+         * @description Remove the value or replace it with your own google site verification code
+         */
+        googleSiteVerification: string
+    }
+
+    /**
+     * Analytics configuration
+     */
+    analytics: {
+        /**
+         * Analytics provider
+         * - '': Disabled
+         * - 'ga': Google Analytics
+         * - 'ackee': Ackee
+         */
+        provider: '' | 'ga' | 'ackee'
+
+        /** Ackee configuration */
+        ackeeConfig: {
+            /**
+             * Ackee tracker URL
+             * @example 'https://analytics.example.com/tracker.js'
+             */
+            tracker: string
+            /**
+             * Ackee server URL
+             * @example 'https://analytics.example.com'
+             * @important Don't end with a slash
+             */
+            dataAckeeServer: string
+            /**
+             * Domain ID
+             * @example '11111111-1111-4111-8111-111111111111'
+             */
+            domainId: string
+        }
+
+        /** Google Analytics configuration */
+        gaConfig: {
+            /**
+             * GA measurement ID
+             * @example 'G-XXXXXXXXXX'
+             */
+            measurementId: string
+        }
+    }
+
+    /**
+     * Comment system configuration
+     */
+    comment: {
+        /** Leave empty to disable comments. */
+        provider: '' | 'giscus' | 'artalk'
+        /** Public identifiers generated by https://giscus.app. */
+        giscusConfig: {
+            repo: string
+            repoId: string
+            category: string
+            categoryId: string
+        }
+        /** Public connection settings for a self-hosted Artalk service. */
+        artalkConfig: {
+            server: string
+            site: string
+        }
+    }
+}

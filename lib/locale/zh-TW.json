@@ -1,0 +1,44 @@
+{
+    "NAV": {
+        "SEARCH": "搜尋"
+    },
+    "PAGINATION": {
+        "PREV": "上一頁",
+        "NEXT": "下一頁"
+    },
+    "POST": {
+        "BACK": "返回",
+        "HOME": "返回首頁",
+        "TOP": "回到頂端",
+        "SUMMARY_EXPAND": "展開摘要",
+        "SUMMARY_COLLAPSE": "收起摘要",
+        "TAGS_EXPAND": "展開其餘 {count} 個標籤",
+        "TAGS_COLLAPSE": "收起其餘 {count} 個標籤"
+    },
+    "TAG_PAGE": {
+        "POSTS": "文章"
+    },
+    "ARCHIVE": {
+        "EMPTY": "還沒有可以歸檔的文章。"
+    },
+    "MOMENTS": {
+        "EMPTY": "還沒有記錄。"
+    },
+    "NOTION": {
+        "COLLECTION_UNAVAILABLE": "資料庫檢視暫時無法載入",
+        "COLLECTION_UNSUPPORTED": "目前的渲染器尚未支援 {view} 版面配置",
+        "COLLECTION_NO_STATUS": "無狀態",
+        "COLLECTION_UNTITLED": "未命名",
+        "COLLECTION_LOAD_MORE": "載入更多"
+    },
+    "PAGE": {
+        "ERROR_404": {
+            "MESSAGE": "這裡什麼都沒有"
+        },
+        "ERROR_500": {
+            "TITLE": "頁面暫時無法載入",
+            "RETRY": "重試",
+            "HOME": "返回首頁"
+        }
+    }
+}

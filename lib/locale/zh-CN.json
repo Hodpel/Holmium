@@ -1,0 +1,44 @@
+{
+    "NAV": {
+        "SEARCH": "搜索"
+    },
+    "PAGINATION": {
+        "PREV": "上一页",
+        "NEXT": "下一页"
+    },
+    "POST": {
+        "BACK": "返回",
+        "HOME": "返回首页",
+        "TOP": "回到顶部",
+        "SUMMARY_EXPAND": "展开摘要",
+        "SUMMARY_COLLAPSE": "收起摘要",
+        "TAGS_EXPAND": "展开其余 {count} 个标签",
+        "TAGS_COLLAPSE": "收起其余 {count} 个标签"
+    },
+    "TAG_PAGE": {
+        "POSTS": "文章"
+    },
+    "ARCHIVE": {
+        "EMPTY": "还没有可以归档的文章。"
+    },
+    "MOMENTS": {
+        "EMPTY": "还没有记录。"
+    },
+    "NOTION": {
+        "COLLECTION_UNAVAILABLE": "数据库视图暂时无法加载",
+        "COLLECTION_UNSUPPORTED": "当前渲染器尚不支持 {view} 布局",
+        "COLLECTION_NO_STATUS": "无状态",
+        "COLLECTION_UNTITLED": "未命名",
+        "COLLECTION_LOAD_MORE": "加载更多"
+    },
+    "PAGE": {
+        "ERROR_404": {
+            "MESSAGE": "什么也没有"
+        },
+        "ERROR_500": {
+            "TITLE": "页面暂时无法加载",
+            "RETRY": "重试",
+            "HOME": "返回首页"
+        }
+    }
+}

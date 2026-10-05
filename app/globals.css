@@ -1,0 +1,682 @@
+@config "../tailwind.config.js";
+@import 'tailwindcss';
+
+@theme {
+    --font-sans: 'IBM Plex Sans', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --font-serif:
+        'Source Serif', 'ui-serif', 'Georgia', 'Nimbus Roman No9 L', 'Songti SC', 'Noto Serif CJK SC', 'Source Han Serif SC', 'Source Han Serif CN', 'STSong', 'AR PL New Sung', 'AR PL SungtiL GB',
+        'NSimSun', 'SimSun', 'TW-Sung', 'WenQuanYi Bitmap Song', 'AR PL UMing CN', 'AR PL UMing HK', 'AR PL UMing TW', 'AR PL UMing TW MBE', 'PMingLiU', 'MingLiU', 'serif';
+}
+
+:root {
+    --holmium-link-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m10 13 4-4m-6 7-1 1a3.54 3.54 0 0 1-5-5l4-4a3.54 3.54 0 0 1 5 0m2 8a3.54 3.54 0 0 0 5 0l4-4a3.54 3.54 0 0 0-5-5l-1 1'/%3E%3C/svg%3E");
+    --holmium-page-background: theme('colors.light.DEFAULT');
+    --background: #ffffff;
+    --foreground: #171717;
+}
+
+:root.dark {
+    --holmium-page-background: theme('colors.dark.DEFAULT');
+}
+
+html {
+    scrollbar-gutter: stable;
+    scroll-behavior: smooth;
+}
+
+body {
+    padding-inline-start: var(--scrollbar-width, 0px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+@theme inline {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+}
+
+::selection {
+    background-color: theme('colors.theme.DEFAULT / 0.3') !important;
+}
+
+.search-field::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    background-color: theme('colors.gray.500');
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18'/%3E%3Cpath d='m6 6 12 12'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18'/%3E%3Cpath d='m6 6 12 12'/%3E%3C/svg%3E") center / contain no-repeat;
+    transition:
+        background-color 160ms ease,
+        opacity 120ms ease;
+}
+
+.search-field::-webkit-search-cancel-button:hover {
+    background-color: theme('colors.theme.DEFAULT');
+}
+
+.search-field::-webkit-search-cancel-button:active {
+    opacity: 0.72;
+}
+
+.search-field {
+    transition: border-color 160ms ease;
+}
+
+.search-field:hover {
+    border-color: color-mix(in srgb, currentColor 35%, transparent);
+}
+
+.search-field:focus-visible {
+    border-color: theme('colors.theme.DEFAULT');
+    outline: none;
+}
+
+.holmium-search-submit {
+    cursor: pointer;
+    transition:
+        background-color 160ms ease,
+        opacity 120ms ease;
+}
+
+.holmium-search-submit:hover {
+    background-color: color-mix(in srgb, theme('colors.theme.DEFAULT') 88%, black);
+}
+
+.holmium-search-submit:focus-visible {
+    outline: 2px solid theme('colors.theme.DEFAULT');
+    outline-offset: 2px;
+}
+
+.holmium-search-submit:active {
+    opacity: 0.72;
+}
+
+.holmium-post-entry-main {
+    border-radius: 0.25rem;
+    transition: opacity 120ms ease;
+}
+
+.holmium-post-entry-title {
+    transition: color 160ms ease;
+}
+
+.holmium-post-entry-link:hover .holmium-post-entry-title,
+.holmium-post-entry-link:focus-visible .holmium-post-entry-title {
+    @apply text-theme;
+}
+
+.holmium-post-entry-link:focus-visible {
+    outline: none;
+}
+
+.holmium-post-entry-link:focus-visible .holmium-post-entry-main {
+    outline: 2px solid theme('colors.theme.DEFAULT');
+    outline-offset: 2px;
+}
+
+.holmium-post-entry-link:active .holmium-post-entry-main {
+    opacity: 0.72;
+}
+
+.holmium-summary-toggle {
+    width: 2.5rem;
+    height: 2rem;
+    isolation: isolate;
+}
+
+.holmium-summary-toggle::before,
+.holmium-summary-toggle::after {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    content: '';
+    pointer-events: none;
+}
+
+.holmium-summary-toggle::before {
+    background: linear-gradient(to right, transparent, var(--background) 70%);
+}
+
+.holmium-summary-toggle::after {
+    background: linear-gradient(to bottom, transparent, var(--background) 70%);
+}
+
+.holmium-summary-toggle-control {
+    position: relative;
+    z-index: 1;
+}
+
+.holmium-metadata-control,
+.holmium-tag-control {
+    transition:
+        border-color 160ms ease,
+        background-color 160ms ease;
+}
+
+.holmium-metadata-control:hover,
+.holmium-tag-control:hover {
+    background-color: color-mix(in srgb, currentColor 6%, transparent);
+}
+
+.holmium-metadata-control:focus-visible,
+.holmium-tag-control:focus-visible {
+    outline: 2px solid theme('colors.theme.DEFAULT');
+    outline-offset: 2px;
+}
+
+.holmium-metadata-control:active,
+.holmium-tag-control:active {
+    background-color: theme('colors.theme.DEFAULT / 0.1');
+}
+
+.holmium-tag-control:active {
+    border-color: theme('colors.theme.DEFAULT / 0.4');
+}
+
+.holmium-timeline {
+    --holmium-timeline-axis: 5rem;
+    --holmium-timeline-line-width: 0.125rem;
+    --holmium-timeline-line-color: color-mix(in srgb, currentColor 20%, var(--holmium-page-background));
+    --holmium-timeline-node-size: 0.375rem;
+    position: relative;
+    margin-block-start: 2.5rem;
+    max-width: 48rem;
+}
+
+.holmium-timeline::before {
+    position: absolute;
+    inset-block: 0.5rem 0.25rem;
+    inset-inline-start: var(--holmium-timeline-axis);
+    width: var(--holmium-timeline-line-width);
+    content: '';
+    background: var(--holmium-timeline-line-color);
+    transform: translateX(-50%);
+}
+
+.holmium-timeline::after {
+    position: absolute;
+    inset-inline-start: var(--holmium-timeline-axis);
+    bottom: 0.25rem;
+    width: var(--holmium-timeline-node-size);
+    height: var(--holmium-timeline-node-size);
+    border-radius: 9999px;
+    background: var(--holmium-timeline-line-color);
+    content: '';
+    transform: translate(-50%, 50%);
+}
+
+.holmium-timeline-year {
+    position: relative;
+    display: grid;
+    grid-template-columns: 4.25rem 1.5rem minmax(0, 1fr);
+    margin-block-end: 2.25rem;
+}
+.holmium-timeline-year:last-child {
+    margin-block-end: 0;
+    padding-block-end: 1.5rem;
+}
+
+.holmium-timeline-year-node {
+    position: absolute;
+    z-index: 1;
+    inset-block-start: 0;
+    inset-inline-start: var(--holmium-timeline-axis);
+    width: 0.75rem;
+    height: 0.75rem;
+    margin-block-start: 0.35rem;
+    border: 2px solid currentColor;
+    border-radius: 9999px;
+    background: var(--holmium-page-background);
+    color: theme('colors.theme.DEFAULT');
+    transform: translateX(-50%);
+}
+.holmium-timeline-year-title {
+    grid-column: 1;
+    align-self: start;
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+    text-align: end;
+}
+.holmium-timeline-year-content { grid-column: 3; min-width: 0; }
+.holmium-timeline-month + .holmium-timeline-month { margin-block-start: 1.5rem; }
+.holmium-timeline-month-title {
+    margin-block-end: 0.5rem;
+    color: color-mix(in srgb, currentColor 65%, transparent);
+}
+.holmium-archive-post {
+    position: relative;
+    display: flex;
+    min-height: 1.75rem;
+    align-items: baseline;
+}
+.holmium-archive-post + .holmium-archive-post { margin-block-start: 0.4rem; }
+.holmium-archive-post-link {
+    max-width: 100%;
+}
+.holmium-archive-post time {
+    position: absolute;
+    inset-inline-end: calc(100% + 1.5rem);
+    width: 4.25rem;
+    color: color-mix(in srgb, currentColor 60%, transparent);
+    font-variant-numeric: tabular-nums;
+    opacity: 0;
+    pointer-events: none;
+    text-align: end;
+    transform: translateX(0.25rem);
+    transition: opacity 160ms ease, transform 160ms ease;
+}
+.holmium-archive-post:is(:hover, :focus-within) time {
+    opacity: 1;
+    transform: translateX(0);
+}
+.holmium-timeline-empty { margin-block-start: 2.5rem; color: color-mix(in srgb, currentColor 65%, transparent); }
+
+.holmium-moments-month,
+.holmium-moment {
+    position: relative;
+    display: grid;
+    grid-template-columns: 4.25rem 1.5rem minmax(0, 1fr);
+}
+.holmium-moments-year .holmium-timeline-year-title {
+    z-index: 2;
+    grid-row: 1;
+    scroll-margin-block-start: 6rem;
+}
+.holmium-moments-year .holmium-timeline-year-node { grid-row: 1; }
+.holmium-moments-year-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-radius: 0.25rem;
+    color: inherit;
+    cursor: pointer;
+    transition: color 160ms ease;
+    vertical-align: top;
+}
+.holmium-moments-year-toggle:hover { color: theme('colors.theme.DEFAULT'); }
+.holmium-moments-year-toggle:focus-visible {
+    outline: 2px solid theme('colors.theme.DEFAULT');
+    outline-offset: 2px;
+}
+.holmium-moments-year-indicator {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-inline-end: 1.5px solid currentColor;
+    border-block-end: 1.5px solid currentColor;
+    opacity: 0.65;
+    transform: translateY(-0.12rem) rotate(45deg);
+    transition: transform 180ms ease;
+}
+.holmium-moments-year.is-open .holmium-moments-year-indicator {
+    transform: translateY(0.12rem) rotate(225deg);
+}
+.holmium-moments-year-reveal {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 240ms ease, opacity 180ms ease;
+}
+.holmium-moments-year.is-open > .holmium-moments-year-reveal { grid-template-rows: 1fr; opacity: 1; }
+.holmium-moments-year-clip { min-width: 0; min-height: 0; overflow: hidden; }
+.holmium-moments-month .holmium-timeline-month-title {
+    grid-column: 3;
+    margin-block-end: 0.6rem;
+    color: color-mix(in srgb, currentColor 65%, transparent);
+}
+.holmium-moment { grid-column: 1 / -1; min-width: 0; }
+.holmium-moment + .holmium-moment { margin-block-start: 1.25rem; }
+.holmium-moment time {
+    grid-column: 1;
+    color: color-mix(in srgb, currentColor 60%, transparent);
+    font-variant-numeric: tabular-nums;
+    line-height: var(--holmium-prose-line-height);
+    text-align: end;
+}
+.holmium-moment-node {
+    position: absolute;
+    z-index: 1;
+    inset-block-start: 0;
+    inset-inline-start: var(--holmium-timeline-axis);
+    width: var(--holmium-timeline-node-size);
+    height: var(--holmium-timeline-node-size);
+    margin-block-start: calc((var(--holmium-prose-line-height) - var(--holmium-timeline-node-size)) / 2);
+    border-radius: 9999px;
+    background: var(--holmium-timeline-line-color);
+    transform: translateX(-50%);
+}
+.holmium-moment-body { grid-column: 3; min-width: 0; }
+.holmium-moment-body .notion {
+    margin-block-start: 0;
+    padding: 0;
+}
+.holmium-moment-body .notion > .notion-viewport + * { margin-block-start: 0; }
+@media (max-width: 640px) {
+    .holmium-timeline { --holmium-timeline-axis: 0.75rem; }
+    .holmium-timeline-year { grid-template-columns: 1.5rem minmax(0, 1fr); }
+    .holmium-timeline-year-title { grid-column: 2; margin-block-end: 1rem; text-align: start; }
+    .holmium-timeline-year-content { grid-column: 2; }
+    .holmium-archive-post {
+        display: grid;
+        grid-template-columns: 2ch minmax(0, 1fr);
+        gap: 0.75rem;
+    }
+    .holmium-archive-post time {
+        position: static;
+        width: auto;
+        opacity: 1;
+        text-align: start;
+        transform: none;
+    }
+    .holmium-moments-month,
+    .holmium-moment { grid-template-columns: 1.5rem minmax(0, 1fr); }
+    .holmium-moments-year .holmium-timeline-year-title { margin-block-end: 0; }
+    .holmium-moments-year-reveal { grid-column: 1 / -1; grid-row: 2; }
+    .holmium-moments-month .holmium-timeline-month-title { grid-column: 2; }
+    .holmium-moment time {
+        grid-column: 2;
+        grid-row: 1;
+        margin-block-end: 0.35rem;
+        text-align: start;
+    }
+    .holmium-moment-body { grid-column: 2; grid-row: 2; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .search-field,
+    .search-field::-webkit-search-cancel-button,
+    .holmium-search-submit {
+        transition: none;
+    }
+
+    .holmium-post-entry-main,
+    .holmium-post-entry-title,
+    .holmium-metadata-control,
+    .holmium-tag-control,
+    .holmium-archive-post time {
+        transition: none;
+    }
+    .holmium-moments-year-toggle,
+    .holmium-moments-year-reveal,
+    .holmium-moments-year-indicator { transition: none; }
+}
+
+.wrapper {
+    position: relative;
+    isolation: isolate;
+    min-height: 100vh;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.article-cover-background {
+    --cover-base: theme('colors.light.DEFAULT');
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: -1;
+    width: min(100%, 100rem);
+    height: clamp(15rem, 24vw, 20rem);
+    margin-inline: auto;
+    pointer-events: none;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, #000 18%, #000 82%, transparent);
+}
+
+.dark .article-cover-background { --cover-base: theme('colors.dark.DEFAULT'); }
+.article-cover-background img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.article-cover-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom,
+        color-mix(in srgb, var(--cover-base) 70%, transparent),
+        color-mix(in srgb, var(--cover-base) 82%, transparent) 45%,
+        color-mix(in srgb, var(--cover-base) 96%, transparent) 80%,
+        var(--cover-base));
+}
+@media (max-width: 767px) {
+    .article-cover-background { height: 18rem; mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); }
+}
+
+.sticky-nav {
+    @apply max-w-3xl;
+    position: sticky;
+    z-index: 10;
+    top: -1px;
+    transition:
+        max-width 0.5s cubic-bezier(0.4, 0, 0, 1),
+        opacity 0.5s cubic-bezier(0.4, 0, 0, 1),
+        transform 0.5s cubic-bezier(0.4, 0, 0, 1),
+        border-bottom-color 0.5s cubic-bezier(0.4, 0, 0, 1),
+        background-color 0.5s cubic-bezier(0.4, 0, 0, 1),
+        padding 0.5s cubic-bezier(0.4, 0, 0, 1);
+    border-bottom-color: transparent;
+}
+
+.sticky-nav-fullwidth {
+    @apply max-w-full md:px-24;
+}
+
+.remove-sticky {
+    position: unset;
+}
+
+.sticky-nav-full {
+    @apply bg-light/70 dark:bg-dark/70 max-w-full shadow-[0_0.3125rem_0.3125rem_-0.3125rem_rgba(0,0,0,0.117)] cursor-pointer;
+    backdrop-filter: blur(20px);
+}
+
+.sticky-nav:not(.sticky-nav-full) .caret {
+    opacity: 0 !important;
+}
+
+.sticky-nav .caret {
+    transition:
+        color 160ms ease,
+        opacity 120ms ease;
+}
+
+.sticky-nav-full:hover .caret {
+    @apply text-theme;
+}
+
+.sticky-nav-full:active:not(:has(a:active, button:active, input:active, select:active, textarea:active)) .caret {
+    opacity: 0.72;
+}
+
+.header-name {
+    display: none;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.sticky-nav-full .nav {
+    @apply text-gray-600 dark:text-gray-300;
+}
+
+nav {
+    flex-wrap: wrap;
+    line-height: 1.5em;
+}
+
+.holmium-header-nav-link {
+    @apply text-gray-600 dark:text-gray-300;
+    border-radius: 0.25rem;
+    transition:
+        color 160ms ease,
+        opacity 120ms ease;
+}
+
+.holmium-header-nav-link:hover,
+.holmium-header-nav-link:focus-visible {
+    @apply text-theme;
+}
+
+.holmium-header-nav-link:focus-visible {
+    outline: none;
+}
+
+.holmium-header-nav-link:focus-visible > svg {
+    border-radius: 0.25rem;
+    outline: 2px solid theme('colors.theme.DEFAULT');
+    outline-offset: 2px;
+}
+
+.holmium-header-nav-link:active {
+    opacity: 0.72;
+}
+
+.holmium-header-logo-link {
+    border-radius: 0.25rem;
+    transition: opacity 120ms ease;
+}
+
+.holmium-header-logo-link:focus-visible {
+    outline: 2px solid theme('colors.theme.DEFAULT');
+    outline-offset: 2px;
+}
+
+.holmium-header-logo-link:active {
+    opacity: 0.72;
+}
+
+.holmium-text-nav-control {
+    @apply inline-flex cursor-pointer items-center gap-1.5 text-gray-500 dark:text-gray-400;
+    border-radius: 0.25rem;
+    transition:
+        color 160ms ease,
+        opacity 120ms ease;
+}
+
+.holmium-text-nav-control:hover,
+.holmium-text-nav-control:focus-visible {
+    @apply text-theme;
+}
+
+.holmium-text-nav-control:focus-visible {
+    outline: 2px solid theme('colors.theme.DEFAULT');
+    outline-offset: 2px;
+}
+
+.holmium-text-nav-control:active {
+    opacity: 0.72;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .holmium-header-nav-link,
+    .holmium-header-logo-link,
+    .holmium-text-nav-control,
+    .sticky-nav .caret {
+        transition: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .header-name {
+        display: grid;
+    }
+    .site-title,
+    .post-title {
+        @apply transition duration-500;
+    }
+    .site-description {
+        opacity: 0;
+        transition: opacity 0.5s cubic-bezier(0.4, 0, 0, 1);
+    }
+    .sticky-nav-full .site-description {
+        @apply opacity-100 transition duration-500;
+    }
+    .post-title {
+        @apply opacity-0;
+    }
+    .post-title ~ span .site-description {
+        @apply hidden;
+    }
+    .sticky-nav-full .post-title {
+        @apply opacity-100;
+    }
+    .sticky-nav-full .post-title ~ span .site-title {
+        @apply opacity-0;
+    }
+}
+.holmium-person-avatar {
+    @apply bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    width: 1em;
+    height: 1em;
+    margin-inline-end: 4px;
+    border-radius: 50%;
+    vertical-align: -0.15em;
+}
+.holmium-person-avatar > :is(svg, img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+.holmium-person-avatar > img {
+    object-fit: cover;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 150ms ease;
+}
+.holmium-person-avatar > img[data-loaded="true"] { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+    .holmium-person-avatar > img { transition: none; }
+}
+.holmium-date-mention,
+.holmium-person-mention {
+    @apply text-gray-500 dark:text-gray-400;
+    padding-inline: 4px;
+    /* Keep the hover inset without adding spacing to the author's text. */
+    margin-inline: -4px;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    border-radius: 0.25rem;
+    cursor: default;
+    transition: background-color 160ms ease;
+}
+/* Explicit Notion text colors, including block-level colors, take precedence. */
+:is(.notion-gray, .notion-brown, .notion-orange, .notion-yellow, .notion-teal, .notion-blue, .notion-purple, .notion-pink, .notion-red) :is(.holmium-date-mention, .holmium-person-mention) {
+    color: inherit;
+}
+.holmium-date-mention:hover,
+.holmium-person-mention:hover {
+    background-color: color-mix(in srgb, currentColor 6%, transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+    .holmium-date-mention, .holmium-person-mention { transition: none; }
+}
+.holmium-summary-code {
+    @apply text-theme;
+    font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-size: 0.875em;
+    background-color: #7f7a6b1a;
+    border-radius: 0.25rem;
+    padding: 0.1em 0.2em;
+    overflow-wrap: anywhere;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+}

@@ -1,0 +1,44 @@
+{
+    "NAV": {
+        "SEARCH": "検索"
+    },
+    "PAGINATION": {
+        "PREV": "前ページ",
+        "NEXT": "次ページ"
+    },
+    "POST": {
+        "BACK": "戻る",
+        "HOME": "ホームに戻る",
+        "TOP": "トップに戻る",
+        "SUMMARY_EXPAND": "概要を展開",
+        "SUMMARY_COLLAPSE": "概要を折りたたむ",
+        "TAGS_EXPAND": "残りのタグ {count} 件を表示",
+        "TAGS_COLLAPSE": "タグ {count} 件を隠す"
+    },
+    "TAG_PAGE": {
+        "POSTS": "記事"
+    },
+    "ARCHIVE": {
+        "EMPTY": "アーカイブできる記事はまだありません。"
+    },
+    "MOMENTS": {
+        "EMPTY": "まだ記録はありません。"
+    },
+    "NOTION": {
+        "COLLECTION_UNAVAILABLE": "データベースビューを一時的に読み込めません",
+        "COLLECTION_UNSUPPORTED": "現在のレンダラーは {view} レイアウトに対応していません",
+        "COLLECTION_NO_STATUS": "ステータスなし",
+        "COLLECTION_UNTITLED": "無題",
+        "COLLECTION_LOAD_MORE": "さらに読み込む"
+    },
+    "PAGE": {
+        "ERROR_404": {
+            "MESSAGE": "ここにはいない"
+        },
+        "ERROR_500": {
+            "TITLE": "ページを読み込めませんでした",
+            "RETRY": "再試行",
+            "HOME": "ホームに戻る"
+        }
+    }
+}

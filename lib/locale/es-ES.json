@@ -1,0 +1,44 @@
+{
+    "NAV": {
+        "SEARCH": "Buscar"
+    },
+    "PAGINATION": {
+        "PREV": "Anterior",
+        "NEXT": "Siguiente"
+    },
+    "POST": {
+        "BACK": "Atrás",
+        "HOME": "Volver al inicio",
+        "TOP": "Arriba",
+        "SUMMARY_EXPAND": "Ampliar resumen",
+        "SUMMARY_COLLAPSE": "Contraer resumen",
+        "TAGS_EXPAND": "Mostrar {count} etiquetas más",
+        "TAGS_COLLAPSE": "Ocultar {count} etiquetas"
+    },
+    "TAG_PAGE": {
+        "POSTS": "Artículos"
+    },
+    "ARCHIVE": {
+        "EMPTY": "Aún no hay entradas para archivar."
+    },
+    "MOMENTS": {
+        "EMPTY": "Aún no hay momentos."
+    },
+    "NOTION": {
+        "COLLECTION_UNAVAILABLE": "La vista de la base de datos no está disponible temporalmente",
+        "COLLECTION_UNSUPPORTED": "El renderizador actual no admite el diseño {view}",
+        "COLLECTION_NO_STATUS": "Sin estado",
+        "COLLECTION_UNTITLED": "Sin título",
+        "COLLECTION_LOAD_MORE": "Cargar más"
+    },
+    "PAGE": {
+        "ERROR_404": {
+            "MESSAGE": "No hay nada aquí"
+        },
+        "ERROR_500": {
+            "TITLE": "No se pudo cargar la página",
+            "RETRY": "Reintentar",
+            "HOME": "Volver al inicio"
+        }
+    }
+}
