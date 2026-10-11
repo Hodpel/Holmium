@@ -46,7 +46,8 @@ export default function CodeFrame({ children, content, labels }: { children: Rea
                 onClick={() => { void handleCopy() }}
                 data-copied={copied || undefined}
             >
-                {copied ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
+                <Copy className="holmium-code-copy-icon" aria-hidden="true" />
+                <Check className="holmium-code-check-icon" aria-hidden="true" />
             </button>
             <span className="sr-only" role="status" aria-live="polite">
                 {currentFeedback ? (copied ? labels.copied : labels.failed) : ''}

@@ -49,6 +49,15 @@ test('copies the complete code without trimming whitespace', async () => {
     assert.equal(clipboard, '  example\n\n')
 })
 
+test('keeps both decorative icons mounted so their visibility can transition independently', () => {
+    const html = renderToStaticMarkup(React.createElement(compiledModule.exports.default, {
+        content: 'example', labels: { copy: 'Copy code', copied: 'Copied', failed: 'Copy failed' },
+    }))
+    assert.match(html, /<svg(?=[^>]*aria-hidden="true")(?=[^>]*class="[^"]*holmium-code-copy-icon)[^>]*>/)
+    assert.match(html, /<svg(?=[^>]*aria-hidden="true")(?=[^>]*class="[^"]*holmium-code-check-icon)[^>]*>/)
+    assert.equal((html.match(/<button\b/g) || []).length, 1)
+})
+
 test('does not report success until the clipboard write completes', async () => {
     let complete
     let settled = false

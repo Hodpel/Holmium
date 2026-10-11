@@ -727,6 +727,7 @@ svg + .notion-page-title-text {
 /* Keep controls outside the pre's scrollable overflow. Short code blocks must
    not acquire a vertical scrollbar from a button or copy feedback. */
 .holmium-code-frame {
+    --holmium-code-transition-duration: 160ms;
     --holmium-code-font-size: 85%;
     --holmium-code-line-height: 1.5;
     --holmium-code-frame-padding: 0px;
@@ -770,11 +771,21 @@ svg + .notion-page-title-text {
     color: inherit;
     box-shadow: none;
     cursor: pointer;
-    transition: background-color 160ms ease, opacity 160ms ease;
+    transition: background-color var(--holmium-code-transition-duration) ease, opacity var(--holmium-code-transition-duration) ease;
 }
 .holmium-code-copy > svg {
+    position: absolute;
     width: 1.125rem;
     height: 1.125rem;
+    pointer-events: none;
+    transition: opacity var(--holmium-code-transition-duration) ease;
+}
+.holmium-code-check-icon,
+.holmium-code-copy[data-copied] > .holmium-code-copy-icon {
+    opacity: 0;
+}
+.holmium-code-copy[data-copied] > .holmium-code-check-icon {
+    opacity: 1;
 }
 .holmium-code-copy:is(:hover, :focus-visible) {
     background-color: color-mix(in srgb, currentColor 6%, transparent);
@@ -790,9 +801,17 @@ svg + .notion-page-title-text {
     .holmium-code-copy { opacity: 0; }
     .holmium-code-frame:is(:hover, :focus-within) .holmium-code-copy,
     .holmium-code-copy[data-copied] { opacity: 1; }
+    /* Outside hover/focus, finish the button fade before resetting its icon.
+       Re-entry cancels the delay and resumes the visible icon transition. */
+    .holmium-code-copy:not([data-copied]) > svg {
+        transition-delay: var(--holmium-code-transition-duration);
+    }
+    .holmium-code-frame:is(:hover, :focus-within) .holmium-code-copy > svg {
+        transition-delay: 0ms;
+    }
 }
 @media (prefers-reduced-motion: reduce) {
-    .holmium-code-copy { transition: none; }
+    .holmium-code-frame { --holmium-code-transition-duration: 0ms; }
 }
 .notion .notion-inline-code {
     @apply text-theme;
