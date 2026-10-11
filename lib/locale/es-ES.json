@@ -25,6 +25,9 @@
         "EMPTY": "Aún no hay momentos."
     },
     "NOTION": {
+        "CODE_COPY": "Copiar código",
+        "CODE_COPIED": "Copiado",
+        "CODE_COPY_FAILED": "No se pudo copiar. Copia el código manualmente.",
         "COLLECTION_UNAVAILABLE": "La vista de la base de datos no está disponible temporalmente",
         "COLLECTION_UNSUPPORTED": "El renderizador actual no admite el diseño {view}",
         "COLLECTION_NO_STATUS": "Sin estado",

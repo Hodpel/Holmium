@@ -25,6 +25,9 @@
         "EMPTY": "還沒有記錄。"
     },
     "NOTION": {
+        "CODE_COPY": "複製程式碼",
+        "CODE_COPIED": "已複製",
+        "CODE_COPY_FAILED": "複製失敗，請手動複製程式碼",
         "COLLECTION_UNAVAILABLE": "資料庫檢視暫時無法載入",
         "COLLECTION_UNSUPPORTED": "目前的渲染器尚未支援 {view} 版面配置",
         "COLLECTION_NO_STATUS": "無狀態",

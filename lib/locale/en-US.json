@@ -25,6 +25,9 @@
         "EMPTY": "No moments yet."
     },
     "NOTION": {
+        "CODE_COPY": "Copy code",
+        "CODE_COPIED": "Copied",
+        "CODE_COPY_FAILED": "Copy failed. Please copy the code manually.",
         "COLLECTION_UNAVAILABLE": "The database view is temporarily unavailable",
         "COLLECTION_UNSUPPORTED": "The current renderer does not support the {view} layout",
         "COLLECTION_NO_STATUS": "No status",

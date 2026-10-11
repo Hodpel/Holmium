@@ -130,9 +130,37 @@ const LANGUAGE_LOADERS: Readonly<Record<string, PrismLanguageLoader>> = {
 const loadedLanguages = new Set(BUILT_IN_LANGUAGES)
 const pendingLanguages = new Map<string, Promise<boolean>>()
 
-function normalizePrismLanguage(language: string): string {
+export function normalizePrismLanguage(language: string): string {
     const normalized = language.trim().toLocaleLowerCase('en-US')
     return LANGUAGE_ALIASES[normalized] ?? normalized
+}
+
+let prismReady: Promise<typeof import('prismjs')> | undefined
+
+async function loadPrism() {
+    const { default: prism } = await import('prismjs')
+    // Retain the built-in grammars previously loaded by react-notion-x's Code,
+    // without importing its second clipboard implementation and controls.
+    await import('prismjs/components/prism-css-extras.js')
+    await import('prismjs/components/prism-js-extras.js')
+    await import('prismjs/components/prism-json.js')
+    await import('prismjs/components/prism-jsx.js')
+    await import('prismjs/components/prism-typescript.js')
+    await import('prismjs/components/prism-tsx.js')
+    return prism
+}
+
+export async function highlightCode(content: string, language: string): Promise<string | null> {
+    try {
+        const prism = await (prismReady ??= loadPrism())
+        const normalized = normalizePrismLanguage(language)
+        if (!await ensurePrismLanguage(normalized)) return null
+        const grammar = prism.languages[normalized]
+        return grammar ? prism.highlight(content, grammar, normalized) : null
+    } catch {
+        prismReady = undefined
+        return null
+    }
 }
 
 export function ensurePrismLanguage(language: string): Promise<boolean> {

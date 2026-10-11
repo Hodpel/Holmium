@@ -7,8 +7,8 @@ import {
     ExtendedRecordMap,
     CodeBlock,
 } from 'notion-types'
-import { NotionRenderer as Renderer } from 'react-notion-x'
-import { ensurePrismLanguage } from '@/components/notion/prismLanguages'
+import { NotionRenderer as Renderer, Text } from 'react-notion-x'
+import { highlightCode, normalizePrismLanguage } from '@/components/notion/prismLanguages'
 import Pdf from '@/components/notion/Pdf'
 import { useResolvedTheme } from '@/components/ThemeRuntime'
 import SmoothLink from '@/components/SmoothLink'
@@ -42,43 +42,48 @@ import { useArticleProgress } from '@/components/entry/ProgressiveArticle'
 import { planRenderBatches, projectRenderBatch } from '@/lib/notion/renderBatches'
 import { projectPageContent } from '@/lib/notion/contentProjection'
 import DeferredMermaid from '@/components/notion/DeferredMermaid'
+import CodeFrame from '@/components/notion/CodeFrame'
 
 // 配置文件
 import config from '@/blog.config'
 import locale from '@/lib/locale'
 
 type LoadedPrismCode = {
+    content: string
     language: string
-    Component: React.ComponentType<{ block: CodeBlock }>
+    html: string | null
 }
 
 function PrismCode(props: { block: CodeBlock }) {
-    const lang = getTextContent(props.block.properties.language)
+    const lang = normalizePrismLanguage(getTextContent(props.block.properties.language) || 'typescript')
+    const content = getTextContent(props.block.properties.title)
+    const caption = props.block.properties.caption
     const [loadedCode, setLoadedCode] = React.useState<LoadedPrismCode | null>(null)
-    const CodeComponent = loadedCode?.language === lang ? loadedCode.Component : null
+    const html = loadedCode?.language === lang && loadedCode.content === content ? loadedCode.html : null
 
     React.useEffect(() => {
         let active = true
 
-        void import('react-notion-x/build/third-party/code').then(async (module) => {
-            await ensurePrismLanguage(lang)
-            if (active) setLoadedCode({ language: lang, Component: module.Code })
+        void highlightCode(content, lang).then((html) => {
+            if (active) setLoadedCode({ content, language: lang, html })
         })
 
         return () => {
             active = false
         }
-    }, [lang])
+    }, [content, lang])
 
-    if (!CodeComponent) {
-        return (
-            <pre className="notion-code text language-plain" tabIndex={0}>
-                <code className="language-plain">{getTextContent(props.block.properties.title)}</code>
+    return (
+        <CodeFrame
+            content={content}
+            labels={{ copy: locale.NOTION.CODE_COPY, copied: locale.NOTION.CODE_COPIED, failed: locale.NOTION.CODE_COPY_FAILED }}
+        >
+            <pre className={`notion-code language-${lang}`} tabIndex={0}>
+                <code className={`language-${lang}`} {...(html === null ? { children: content } : { dangerouslySetInnerHTML: { __html: html } })} />
             </pre>
-        )
-    }
-
-    return <CodeComponent {...props} />
+            {caption && <figcaption className="notion-asset-caption"><Text value={caption} block={props.block} /></figcaption>}
+        </CodeFrame>
+    )
 }
 
 const Code = function CodeSwitch(props: { block: CodeBlock }) {

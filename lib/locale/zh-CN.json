@@ -25,6 +25,9 @@
         "EMPTY": "还没有记录。"
     },
     "NOTION": {
+        "CODE_COPY": "复制代码",
+        "CODE_COPIED": "已复制",
+        "CODE_COPY_FAILED": "复制失败，请手动复制代码",
         "COLLECTION_UNAVAILABLE": "数据库视图暂时无法加载",
         "COLLECTION_UNSUPPORTED": "当前渲染器尚不支持 {view} 布局",
         "COLLECTION_NO_STATUS": "无状态",

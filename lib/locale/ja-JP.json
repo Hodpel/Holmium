@@ -25,6 +25,9 @@
         "EMPTY": "まだ記録はありません。"
     },
     "NOTION": {
+        "CODE_COPY": "コードをコピー",
+        "CODE_COPIED": "コピーしました",
+        "CODE_COPY_FAILED": "コピーできませんでした。手動でコピーしてください。",
         "COLLECTION_UNAVAILABLE": "データベースビューを一時的に読み込めません",
         "COLLECTION_UNSUPPORTED": "現在のレンダラーは {view} レイアウトに対応していません",
         "COLLECTION_NO_STATUS": "ステータスなし",

@@ -723,6 +723,77 @@ svg + .notion-page-title-text {
 .notion .notion-inline-code {
     font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Courier, var(--font-sans);
 }
+
+/* Keep controls outside the pre's scrollable overflow. Short code blocks must
+   not acquire a vertical scrollbar from a button or copy feedback. */
+.holmium-code-frame {
+    --holmium-code-font-size: 85%;
+    --holmium-code-line-height: 1.5;
+    --holmium-code-frame-padding: 0px;
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    margin: 4px 0;
+    padding: 0;
+}
+/* react-notion-x gives direct children of .notion 3px block padding.
+   Preserve that spacing and share it with the first-line button anchor. */
+.notion > .holmium-code-frame {
+    --holmium-code-frame-padding: 3px;
+    padding-block: var(--holmium-code-frame-padding);
+}
+.notion .holmium-code-frame > pre.notion-code {
+    margin: 0;
+    font-size: var(--holmium-code-font-size);
+    line-height: var(--holmium-code-line-height);
+    padding-block: 1em;
+    padding-right: 3.25rem;
+}
+.holmium-code-copy {
+    position: absolute;
+    /* Both elements use the code font size: top padding + half a line.
+       Translate by half the button height to align their centers. */
+    top: calc(var(--holmium-code-frame-padding) + 1em + var(--holmium-code-line-height) * 0.5em);
+    transform: translateY(-50%);
+    right: 0.5rem;
+    font-size: var(--holmium-code-font-size);
+    line-height: var(--holmium-code-line-height);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: 0;
+    border-radius: 0.25rem;
+    background: transparent;
+    color: inherit;
+    box-shadow: none;
+    cursor: pointer;
+    transition: background-color 160ms ease, opacity 160ms ease;
+}
+.holmium-code-copy > svg {
+    width: 1.125rem;
+    height: 1.125rem;
+}
+.holmium-code-copy:is(:hover, :focus-visible) {
+    background-color: color-mix(in srgb, currentColor 6%, transparent);
+}
+.holmium-code-copy:active {
+    background-color: theme('colors.theme.DEFAULT / 0.1');
+}
+.holmium-code-copy:focus-visible {
+    outline: 2px solid theme('colors.theme.DEFAULT');
+    outline-offset: 2px;
+}
+@media (hover: hover) {
+    .holmium-code-copy { opacity: 0; }
+    .holmium-code-frame:is(:hover, :focus-within) .holmium-code-copy,
+    .holmium-code-copy[data-copied] { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .holmium-code-copy { transition: none; }
+}
 .notion .notion-inline-code {
     @apply text-theme;
     background: #7f7a6b1a !important;
