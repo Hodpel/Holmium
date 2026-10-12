@@ -1620,8 +1620,9 @@ a.holmium-board-card:focus-visible {
 /* Toggle block */
 
 .notion-toggle > summary {
-    display: flex;
-    align-items: center;
+    position: relative;
+    display: block;
+    padding-left: 1.1rem;
     list-style: none;
 }
 
@@ -1630,6 +1631,8 @@ a.holmium-board-card:focus-visible {
 }
 
 .notion-toggle > summary:has(> .notion-h) {
+    display: flex;
+    align-items: center;
     padding-left: 1.1em;
 }
 
@@ -1649,9 +1652,10 @@ a.holmium-board-card:focus-visible {
 }
 
 .notion-toggle > summary::before {
-    margin-right: 0.35rem;
-    margin-left: 0.25rem;
-    flex: none;
+    position: absolute;
+    top: 0.5lh;
+    left: 0.25rem;
+    transform: translateY(-50%);
 }
 
 .notion-toggle > summary:has(> .notion-h)::before {
@@ -1670,7 +1674,7 @@ a.holmium-board-card:focus-visible {
 }
 
 .notion-toggle[open] > summary::before {
-    transform: rotate(90deg);
+    transform: translateY(-50%) rotate(90deg);
 }
 
 .notion-toggle[open] > summary > .notion-h .notion-h-title::before {
@@ -1683,6 +1687,7 @@ a.holmium-board-card:focus-visible {
     }
 
     .notion-toggle::details-content {
+        display: flow-root;
         height: 0;
         overflow: clip;
         opacity: 0;
