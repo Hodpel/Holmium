@@ -9,12 +9,7 @@ import {
     getPreviewImageMaxDimension,
     loadPreviewImage,
 } from './previewImages.ts'
-import {
-    buildVideoPreviewStyleSheet,
-    calculateVideoDisplayHeight,
-    collectVideoPreviewDescriptors,
-    collectVideoThumbnailUrls,
-} from './videoPreview.ts'
+import { collectVideoThumbnailUrls } from './videoPreview.ts'
 
 function record(value: Record<string, unknown>) {
     return { role: 'reader', value }
@@ -106,63 +101,6 @@ test('getPreviewImageMaxDimension reserves 32px only for video thumbnails', () =
 
     assert.equal(getPreviewImageMaxDimension('https://assets.example/video-thumbnail.jpg', videoThumbnailUrls), 32)
     assert.equal(getPreviewImageMaxDimension('https://assets.example/photo.jpg', videoThumbnailUrls), 16)
-})
-
-test('collectVideoPreviewDescriptors derives a responsive video ratio from its thumbnail preview', () => {
-    const blockId = '12345678-1234-1234-1234-123456789abc'
-    const preview: PreviewImage = {
-        originalWidth: 496,
-        originalHeight: 864,
-        dataURIBase64: 'data:image/webp;base64,video-preview',
-    }
-    const recordMap = {
-        block: {
-            [blockId]: record({
-                id: blockId,
-                type: 'video',
-                format: {
-                    video_thumbnail: 'https://assets.example/video-thumbnail.jpg',
-                },
-            }),
-        },
-        signed_urls: {},
-        preview_images: {
-            'assets.example/video-thumbnail.jpg': preview,
-        },
-    } as unknown as ExtendedRecordMap
-
-    assert.deepEqual(collectVideoPreviewDescriptors(recordMap, (url: string | undefined) => url), [
-        {
-            blockId: '12345678123412341234123456789abc',
-            width: 496,
-            height: 864,
-            dataURIBase64: 'data:image/webp;base64,video-preview',
-            thumbnailUrl: 'https://assets.example/video-thumbnail.jpg',
-        },
-    ])
-})
-
-test('buildVideoPreviewStyleSheet keeps the video LQIP unfiltered', () => {
-    const styleSheet = buildVideoPreviewStyleSheet([
-        {
-            blockId: '12345678123412341234123456789abc',
-            width: 496,
-            height: 864,
-            dataURIBase64: 'data:image/webp;base64,video-preview',
-            thumbnailUrl: 'https://assets.example/video-thumbnail.jpg',
-        },
-    ])
-
-    assert.match(styleSheet, /\.notion-block-12345678123412341234123456789abc/)
-    assert.match(styleSheet, /aspect-ratio: 496 \/ 864/)
-    assert.match(styleSheet, /background-image: url\("data:image\/webp;base64,video-preview"\)/)
-    assert.doesNotMatch(styleSheet, /filter:/)
-    assert.doesNotMatch(styleSheet, /transform:/)
-})
-
-test('calculateVideoDisplayHeight preserves the intrinsic ratio for the metadata fallback', () => {
-    assert.equal(calculateVideoDisplayHeight(708, 496, 864), (708 * 864) / 496)
-    assert.equal(calculateVideoDisplayHeight(708, 0, 864), null)
 })
 
 test('buildPreviewImageMap isolates a failed image from successful previews', async () => {

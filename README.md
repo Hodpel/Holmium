@@ -46,6 +46,7 @@ Holmium 基于 Next.js App Router、`notion-client` 与 `react-notion-x` 构建�
 - 使用 Notion 数据库管理文章与独立页面
 - 支持文章列表、标签、分页、站内搜索与 RSS
 - 支持 Notion 富文本、公式、Mermaid、媒体与数据库视图
+- 文件视频与音频使用 Video.js 控件；YouTube、Vimeo 等平台视频保留原有嵌入播放器
 - 支持 Light、Dark 与跟随系统的显示模式
 - 支持响应式布局、分享卡片与文章封面
 - 支持 Giscus 和 Artalk 评论

@@ -32,7 +32,10 @@
         "COLLECTION_UNSUPPORTED": "当前渲染器尚不支持 {view} 布局",
         "COLLECTION_NO_STATUS": "无状态",
         "COLLECTION_UNTITLED": "未命名",
-        "COLLECTION_LOAD_MORE": "加载更多"
+        "COLLECTION_LOAD_MORE": "加载更多",
+        "MEDIA_RETRY": "重试",
+        "MEDIA_FAILED": "媒体暂时无法加载。",
+        "MEDIA_PLAY_AGAIN": "请再次点击播放。"
     },
     "PAGE": {
         "ERROR_404": {

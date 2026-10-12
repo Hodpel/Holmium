@@ -32,7 +32,10 @@
         "COLLECTION_UNSUPPORTED": "El renderizador actual no admite el diseño {view}",
         "COLLECTION_NO_STATUS": "Sin estado",
         "COLLECTION_UNTITLED": "Sin título",
-        "COLLECTION_LOAD_MORE": "Cargar más"
+        "COLLECTION_LOAD_MORE": "Cargar más",
+        "MEDIA_RETRY": "Reintentar",
+        "MEDIA_FAILED": "No se pudo cargar el contenido multimedia.",
+        "MEDIA_PLAY_AGAIN": "Haz clic de nuevo para reproducir."
     },
     "PAGE": {
         "ERROR_404": {

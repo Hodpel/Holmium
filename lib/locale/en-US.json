@@ -32,7 +32,10 @@
         "COLLECTION_UNSUPPORTED": "The current renderer does not support the {view} layout",
         "COLLECTION_NO_STATUS": "No status",
         "COLLECTION_UNTITLED": "Untitled",
-        "COLLECTION_LOAD_MORE": "Load more"
+        "COLLECTION_LOAD_MORE": "Load more",
+        "MEDIA_RETRY": "Retry",
+        "MEDIA_FAILED": "Media could not load.",
+        "MEDIA_PLAY_AGAIN": "Please click to play again."
     },
     "PAGE": {
         "ERROR_404": {

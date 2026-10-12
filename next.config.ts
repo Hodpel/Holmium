@@ -6,6 +6,7 @@ const notionOrigin = new URL(`https://${NEXT_PUBLIC_NOTION_HOST || 'www.notion.s
 const nextConfig: NextConfig = {
     images: {
         remotePatterns: [
+            { protocol: 'https', hostname: 'app.notion.com', pathname: '/image/**' },
             {
                 protocol: 'https',
                 hostname: notionOrigin.hostname,

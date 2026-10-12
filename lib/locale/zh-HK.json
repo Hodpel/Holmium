@@ -32,7 +32,10 @@
         "COLLECTION_UNSUPPORTED": "目前的渲染器尚未支援 {view} 版面配置",
         "COLLECTION_NO_STATUS": "無狀態",
         "COLLECTION_UNTITLED": "未命名",
-        "COLLECTION_LOAD_MORE": "載入更多"
+        "COLLECTION_LOAD_MORE": "載入更多",
+        "MEDIA_RETRY": "重試",
+        "MEDIA_FAILED": "媒體暫時無法載入。",
+        "MEDIA_PLAY_AGAIN": "請再次點擊播放。"
     },
     "PAGE": {
         "ERROR_404": {

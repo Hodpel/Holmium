@@ -32,7 +32,10 @@
         "COLLECTION_UNSUPPORTED": "現在のレンダラーは {view} レイアウトに対応していません",
         "COLLECTION_NO_STATUS": "ステータスなし",
         "COLLECTION_UNTITLED": "無題",
-        "COLLECTION_LOAD_MORE": "さらに読み込む"
+        "COLLECTION_LOAD_MORE": "さらに読み込む",
+        "MEDIA_RETRY": "再試行",
+        "MEDIA_FAILED": "メディアを読み込めませんでした。",
+        "MEDIA_PLAY_AGAIN": "もう一度クリックして再生してください。"
     },
     "PAGE": {
         "ERROR_404": {

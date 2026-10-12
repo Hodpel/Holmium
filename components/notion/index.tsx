@@ -25,7 +25,8 @@ import type { EquationHtmlMap } from '@/lib/notion/equation'
 import Equation, { EquationHtmlProvider } from '@/components/notion/Equation'
 import LazyCollection, { type CollectionProps } from '@/components/notion/LazyCollection'
 import { CollectionCheckboxValue } from '@/components/notion/collectionPropertyValues'
-import VideoPreviews from '@/components/notion/VideoPreviews'
+import FileMediaEmbed, { FileMediaDocument } from '@/components/notion/FileMediaEmbed'
+import { projectFileMediaBlocks } from '@/lib/notion/fileMedia'
 import { DATE_MENTION_PREFIX, localizeRecordMapDates } from '@/lib/notion/localizeDates'
 import { normalizeUserMentions, PERSON_MENTION_PREFIX } from '@/lib/notion/userMentions'
 import PersonMention from '@/components/notion/PersonMention'
@@ -216,6 +217,7 @@ function SameSiteLinkMentionNavigation({ children }: { children: React.ReactNode
 }
 
 const components = {
+    Embed: FileMediaEmbed,
     Button,
     Code,
     Collection,
@@ -264,7 +266,8 @@ export function NotionDocumentProvider(props: {
 }) {
     const theme = useResolvedTheme()
     const dateSnapshot = useDateClock(props.recordMap, config.timezone)
-    const personRecordMap = React.useMemo(() => normalizeUserMentions(props.recordMap, config.locale), [props.recordMap])
+    const fileMedia = React.useMemo(() => projectFileMediaBlocks(props.recordMap), [props.recordMap])
+    const personRecordMap = React.useMemo(() => normalizeUserMentions(fileMedia.recordMap, config.locale), [fileMedia.recordMap])
     const localizedRecordMap = React.useMemo(
         () => normalizeRenderBlocks(localizeRecordMapDates(personRecordMap, config.locale, {
             now: dateSnapshot ? new Date(dateSnapshot) : undefined,
@@ -299,7 +302,7 @@ export function NotionDocumentProvider(props: {
             </style>
             <NotionPageHrefContext.Provider value={props.pageHrefMap}>
                 <CachedImageLoadRecovery recordMap={localizedRecordMap} />
-                <VideoPreviews recordMap={localizedRecordMap} />
+                <FileMediaDocument media={fileMedia.media}>
                 <EquationHtmlProvider value={props.equationHtml}>
                     <SameSiteLinkMentionNavigation>
                         <TabTransitions>
@@ -309,6 +312,7 @@ export function NotionDocumentProvider(props: {
                         </TabTransitions>
                     </SameSiteLinkMentionNavigation>
                 </EquationHtmlProvider>
+                </FileMediaDocument>
             </NotionPageHrefContext.Provider>
         </>
     )
