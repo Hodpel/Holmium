@@ -20,6 +20,7 @@ import {
 import { executeNotionRequest } from './upstream'
 import { collectVideoThumbnailUrls } from './videoPreview'
 import { prepareFileSigning } from './fileResources'
+import { hydrateIndependentProperties, type PropertyRecords } from './propertyCompatibility'
 
 type NotionSourceDescriptor = {
     rootPageId: string
@@ -35,6 +36,17 @@ function getSourceDescriptor(): NotionSourceDescriptor {
 const COLLECTION_VIEW_BATCH_SIZE = 100
 const COLLECTION_PAGE_LIMIT = 999
 const PREVIEW_IMAGE_BUDGET_MS = 15_000
+
+function hydrateProperties(recordMap: ExtendedRecordMap, signal: AbortSignal) {
+    return hydrateIndependentProperties(recordMap, async requests => {
+        const response = await notion.fetch<{ recordMap?: PropertyRecords }>({
+            endpoint: 'syncRecordValuesMain',
+            body: { requests },
+            ofetchOptions: { retry: false, signal },
+        })
+        return response.recordMap
+    })
+}
 
 type CollectionViewRecordResponse = {
     recordMap?: {
@@ -217,13 +229,14 @@ async function hydrateIncompleteBoardQueries(
 
 async function loadBlogIndex(descriptor: NotionSourceDescriptor, sortByDate: boolean): Promise<BlogIndex> {
     return executeNotionRequest('blog-index', async (signal) => {
-        const recordMap = await notion.getPage(descriptor.rootPageId, {
+        const rawRecordMap = await notion.getPage(descriptor.rootPageId, {
             fetchCollections: true,
             signFileUrls: false,
             throwOnCollectionErrors: true,
             collectionReducerLimit: 5000,
             ofetchOptions: { retry: false, signal },
         })
+        const recordMap = await hydrateProperties(rawRecordMap, signal)
         const index = buildBlogIndexFromRecordMap({
             rootPageId: descriptor.rootPageId,
             recordMap,
@@ -251,7 +264,7 @@ async function loadBlogIndex(descriptor: NotionSourceDescriptor, sortByDate: boo
     })
 }
 
-const getCachedBlogIndex = unstable_cache(loadBlogIndex, ['blog-index', 'summary-rich-text-v3'], { revalidate: 300 })
+const getCachedBlogIndex = unstable_cache(loadBlogIndex, ['blog-index', 'summary-rich-text-v3', 'independent-properties-v1'], { revalidate: 300 })
 
 async function loadPageRecordMap(pageId: string): Promise<ExtendedRecordMap> {
     return executeNotionRequest('blog-page', async (signal) => {
@@ -260,7 +273,7 @@ async function loadPageRecordMap(pageId: string): Promise<ExtendedRecordMap> {
             ofetchOptions: { retry: false, signal },
         })
         const withViews = await hydrateMissingCollectionViews(recordMap, pageId, signal)
-        const withBoards = await hydrateIncompleteBoardQueries(withViews, pageId, signal)
+        const withBoards = await hydrateProperties(await hydrateIncompleteBoardQueries(withViews, pageId, signal), signal)
         const signingMap = prepareFileSigning(withBoards)
         await notion.addSignedUrls({ recordMap: signingMap, ofetchOptions: { retry: false, signal } })
         withBoards.signed_urls = signingMap.signed_urls
@@ -293,7 +306,7 @@ const getCachedPageRecordMap = unstable_cache(async (
     void descriptor
     void contentRevision
     return loadPageRecordMap(pageId)
-}, ['blog-page'], { revalidate: 300 })
+}, ['blog-page', 'independent-properties-v1'], { revalidate: 300 })
 
 export async function getBlogIndex(sortByDate = false): Promise<BlogIndex> {
     const descriptor = getSourceDescriptor()
