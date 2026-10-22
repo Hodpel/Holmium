@@ -1,4 +1,5 @@
 import type { NextConfig } from 'next'
+import { PHASE_PRODUCTION_BUILD } from 'next/constants'
 
 const { NEXT_PUBLIC_NOTION_HOST } = process.env
 const notionOrigin = new URL(`https://${NEXT_PUBLIC_NOTION_HOST || 'www.notion.so'}`)
@@ -32,4 +33,9 @@ const nextConfig: NextConfig = {
     },
 }
 
-export default nextConfig
+export default function config(phase: string): NextConfig {
+    if (phase === PHASE_PRODUCTION_BUILD) {
+        console.info(`[build] Node.js ${process.version}`)
+    }
+    return nextConfig
+}
